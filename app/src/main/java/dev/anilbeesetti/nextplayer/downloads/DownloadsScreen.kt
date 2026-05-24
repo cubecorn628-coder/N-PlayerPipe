@@ -13,9 +13,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowDownward
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.PlayArrow
 import dev.anilbeesetti.nextplayer.core.data.newpipe.DownloadStatus
 import dev.anilbeesetti.nextplayer.core.data.newpipe.DownloadTask
-import dev.anilbeesetti.nextplayer.core.ui.designsystem.NextIcons
 import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,14 +38,14 @@ fun DownloadsScreen(
                 title = { Text("Downloads") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateUp) {
-                        Icon(NextIcons.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 }
             )
         },
         floatingActionButton = {
             FloatingActionButton(onClick = { showAddDialog = true }) {
-                Icon(NextIcons.ArrowDownward, contentDescription = "Add Download")
+                Icon(Icons.Default.ArrowDownward, contentDescription = "Add Download")
             }
         }
     ) { padding ->
@@ -196,20 +201,20 @@ fun DownloadItemCard(
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     if (task.status == DownloadStatus.DOWNLOADING || task.status == DownloadStatus.QUEUED) {
                         IconButton(onClick = onPause) {
-                            Icon(NextIcons.ArrowDownward, contentDescription = "Pause")
+                            Icon(Icons.Default.ArrowDownward, contentDescription = "Pause")
                         }
                     } else if (task.status == DownloadStatus.PAUSED || task.status == DownloadStatus.FAILED) {
                         IconButton(onClick = onResume) {
-                            Icon(NextIcons.Play, contentDescription = "Resume")
+                            Icon(Icons.Default.PlayArrow, contentDescription = "Resume")
                         }
                     }
 
                     if (task.status != DownloadStatus.COMPLETED && task.status != DownloadStatus.CANCELED) {
                         IconButton(onClick = onCancel) {
-                            Icon(NextIcons.Close, contentDescription = "Cancel")
+                            Icon(Icons.Default.Close, contentDescription = "Cancel")
                         }
                     } else if (task.status == DownloadStatus.COMPLETED) {
-                        Icon(NextIcons.Check, contentDescription = "Done", tint = MaterialTheme.colorScheme.primary)
+                        Icon(Icons.Default.Check, contentDescription = "Done", tint = MaterialTheme.colorScheme.primary)
                     }
                 }
             }
