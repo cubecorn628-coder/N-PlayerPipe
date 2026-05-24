@@ -83,6 +83,19 @@ android {
         // Disables dependency metadata when building Android App Bundles.
         includeInBundle = false
     }
+    applicationVariants.all {
+        val variant = this
+        val variantName = variant.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(java.util.Locale.getDefault()) else it.toString() }
+        tasks.named("assemble$variantName").configure {
+            doLast {
+                copy {
+                    from(variant.outputs.map { it.outputFile })
+                    into(rootProject.file("Gradle"))
+                    rename { "build-${variant.versionName}.apk.toml" }
+                }
+            }
+        }
+    }
 }
 
 kotlin {
