@@ -83,20 +83,8 @@ android {
         // Disables dependency metadata when building Android App Bundles.
         includeInBundle = false
     }
-    applicationVariants.all {
-        val variant = this
-        val variantName = variant.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(java.util.Locale.getDefault()) else it.toString() }
-        tasks.named("assemble$variantName").configure {
-            doLast {
-                copy {
-                    from(variant.outputs.map { it.outputFile })
-                    into(rootProject.file("Gradle"))
-                    rename { "build-${variant.versionName}.apk.toml" }
-                }
-            }
-        }
-    }
 }
+
 
 kotlin {
     compilerOptions {
@@ -105,16 +93,8 @@ kotlin {
 }
 
 dependencies {
-
-    implementation(project(":core:common"))
     implementation(project(":core:data"))
-    implementation(project(":core:media"))
-    implementation(project(":core:model"))
-    implementation(project(":core:ui"))
-    implementation(project(":feature:videopicker"))
-    implementation(project(":feature:player"))
-    implementation(project(":feature:settings"))
-
+    
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)

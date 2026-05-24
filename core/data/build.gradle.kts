@@ -28,11 +28,6 @@ kotlin {
 
 dependencies {
 
-    implementation(project(":core:database"))
-    implementation(project(":core:media"))
-    implementation(project(":core:common"))
-    implementation(project(":core:model"))
-    implementation(project(":core:datastore"))
     implementation(libs.github.teamnewpipe.newpipeextractor)
     implementation(libs.okhttp)
 
